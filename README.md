@@ -1,4 +1,4 @@
 # SumWS
 Udemy Java Webservices course tutor project
 
-Version 1.6
+Version 3.1-b22
