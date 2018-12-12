@@ -6,7 +6,7 @@
 
   <groupId>nl.matrik.training.ws</groupId>
   <artifactId>sumws</artifactId>
-  <version>3.1-b2</version>
+  <version>3.1-b3</version>
   <packaging>war</packaging>
 
   <name>sumws Maven Webapp</name>
@@ -194,7 +194,7 @@
               </execution>
             </executions>
             <configuration>
-              <newVersion>${major.version}.${minor.version}-b$\{buildNumber}</newVersion>
+              <newVersion>${major.version}.${minor.version}-b${buildNumber}</newVersion>
               <generateBackupPoms>false</generateBackupPoms>
             </configuration>
           </plugin>
