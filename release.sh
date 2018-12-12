@@ -14,7 +14,9 @@
 #
 #
 #
-# 2 The build pipeline on the buildserver builds basde on the latest tagged version.
+# 2 The build pipeline on the buildserver builds based on the latest tagged version.
+#
+
 mvn clean validate -Prelease
 
 STATUS=$?
@@ -26,9 +28,7 @@ if [ $STATUS -eq 0 ]; then
 
     git commit -a -m "Upgrade build number $major.$minor-b$buildNumber"
     mvn clean validate -Ptag
-    git push --follow-tags
 
-    echo "test: $test"
 else
     echo "Validating the realease failed"
 fi
