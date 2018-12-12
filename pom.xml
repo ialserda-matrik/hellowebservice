@@ -6,18 +6,31 @@
 
   <groupId>nl.matrik.training.ws</groupId>
   <artifactId>sumws</artifactId>
-  <version>1.6-SNAPSHOT</version>
+  <version>3.1-b100-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <name>sumws Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
+  <scm>
+    <developerConnection>scm:git:https://github.com/ialserda-matrik/hellowebservice.git</developerConnection>
+    <connection>scm:git:https://github.com/ialserda-matrik/hellowebservice.git</connection>
+    <url>https://github.com/ialserda-matrik/hellowebservice.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <maven-scm-plugin.version>1.9.4</maven-scm-plugin.version>
+    <maven-enforser-plugin.version>1.4</maven-enforser-plugin.version>
+    <buildnumber-maven-plugin.version>1.3</buildnumber-maven-plugin.version>
+    <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
     <cxf.version>3.1.9</cxf.version>
+    <major.version>3</major.version>
+    <minor.version>1</minor.version>
   </properties>
 
   <dependencies>
@@ -106,4 +119,89 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <version>${maven-scm-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>check-local-modification</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>check-local-modification</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>${maven-enforser-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>enforce-no-snapshots</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <requireReleaseDeps>
+                      <message>No Snapshots allowed!</message>
+                    </requireReleaseDeps>
+                  </rules>
+                  <fail>true</fail>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>${buildnumber-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <format>{0,number</format>
+              <items>
+                <item>buildNumber</item>
+              </items>
+              <doCheck>true</doCheck>
+              <doUpdate>true</doUpdate>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>${versions-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>set</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <newVersion>${major.version}.${minor.version}-b${buildNumber}</newVersion>
+              <generateBackupPoms>false</generateBackupPoms>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
 </project>
