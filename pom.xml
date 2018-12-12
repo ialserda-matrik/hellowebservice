@@ -201,6 +201,31 @@
         </plugins>
       </build>
     </profile>
+      <profile>
+          <id>tag</id>
+          <build>
+              <plugins>
+                  <plugin>
+                      <groupId>org.apache.maven.plugins</groupId>
+                      <artifactId>maven-scm-plugin</artifactId>
+                      <version>${maven-scm-plugin.version}</version>
+                      <configuration>
+                          <tag>${project.version}</tag>
+                          <connectionType>connection</connectionType>
+                      </configuration>
+                      <executions>
+                          <execution>
+                              <id>tag</id>
+                              <phase>validate</phase>
+                              <goals>
+                                  <goal>tag</goal>
+                              </goals>
+                          </execution>
+                      </executions>
+                  </plugin>
+              </plugins>
+          </build>
+      </profile>
 
   </profiles>
 
