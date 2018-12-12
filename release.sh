@@ -19,7 +19,7 @@ mvn clean validate -Prelease
 
 STATUS=$?
 if [ $STATUS -eq 0 ]; then
-    test=$(grep -om1 '(?<=<major.version>).*?(?=</major.version>)' < pom.xml)
+    test=$(grep -om1  "<major.version>" pom.xml)
     major=$(grep -om1 "(?<=<major\.version>)[^<]+" pom.xml)
     minor=$(grep -om1 "(?<=<minor\.version>)[^<]+" pom.xml)
     . buildNumber.properties
