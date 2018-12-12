@@ -19,8 +19,8 @@ mvn clean validate -Prelease
 
 STATUS=$?
 if [ $STATUS -eq 0 ]; then
-    major=$(grep -oPm1 "(?<=<major\.version>)[^<]+" < pom.xml)
-    minor=$(grep -oPm1 "(?<=<minor\.version>)[^<]+" < pom.xml)
+    major=$(grep -om1 "(?<=<major\.version>)[^<]+" < pom.xml)
+    minor=$(grep -om1 "(?<=<minor\.version>)[^<]+" < pom.xml)
     . buildNumber.properties
 
     git commit -a -m "Upgrade build number $major.$minor-b$buildNumber"
