@@ -26,7 +26,7 @@ if [ $STATUS -eq 0 ]; then
 
     git commit -a -m "Upgrade build number $major.$minor-b$buildNumber"
     mvn clean validate -Ptag
-    git push --folow-tags
+    git push --follow-tags
 
     echo "test: $test"
 else
